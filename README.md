@@ -23,8 +23,8 @@ PLGame è un gioco platformer 2D sviluppato in Java. L'obiettivo del gioco è na
    ```sh
    git clone https://github.com/simonesiega/PlatformerGame.git
 2. Importa il progetto nel tuo IDE:
-     Per IntelliJ IDEA: Apri IntelliJ IDEA, seleziona File > Open e scegli la cartella del progetto.
-     Per Eclipse: Seleziona File > Import, scegli Existing Projects into Workspace e seleziona la cartella del progetto.
+- Per IntelliJ IDEA: Apri IntelliJ IDEA, seleziona File > Open e scegli la cartella del progetto.
+- Per Eclipse: Seleziona File > Import, scegli Existing Projects into Workspace e seleziona la cartella del progetto.
 3. Costruisci il progetto per scaricare le dipendenze e configurare l'ambiente di sviluppo.
 
 Uso
