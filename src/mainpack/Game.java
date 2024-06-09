@@ -1,5 +1,9 @@
 package mainpack;
 
+import entities.Player;
+
+import java.awt.*;
+
 /**
  * Main class
  * Manages the game
@@ -13,15 +17,27 @@ public class Game implements Runnable {
     private final int _FPS_SET = 120;
     private final int _UPS_SET = 200;
 
+    private Player _player;
+
     /**
      *
      */
     public Game(){
-        _gamePanel = new GamePanel();
+        initClasses();
+
+        _gamePanel = new GamePanel(this);
         _gameWindow = new GameWindow(_gamePanel);
         _gamePanel.requestFocus(); //Requests that this Component gets the input focus
 
         startGameLoop();
+    }
+
+    public Player getPlayer(){
+        return _player;
+    }
+
+    private void initClasses() {
+        _player = new Player(200, 200);
     }
 
     private void startGameLoop(){
@@ -30,7 +46,11 @@ public class Game implements Runnable {
     }
 
     private void update(){
-        _gamePanel.updateGame();
+        _player.update();
+    }
+
+    public void render(Graphics g){
+        _player.render(g);
     }
 
     @Override
@@ -76,5 +96,9 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
+    }
+
+    public void windowFocusLost() {
+        _player.resetDirBoolean();
     }
 }
