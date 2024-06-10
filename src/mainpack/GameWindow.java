@@ -5,20 +5,19 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
 public class GameWindow {
-    private final JFrame _frame;
 
     public GameWindow(GamePanel gamePanel) {
-        _frame = new JFrame();
+        JFrame frame = new JFrame();
 
         // Set up game frame
-        _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        _frame.add(gamePanel); // makes up our window
-        _frame.setLocationRelativeTo(null);
-        _frame.setResizable(false); // no resizable
-        _frame.pack();
-        _frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(gamePanel); // makes up our window
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false); // no resizable
+        frame.pack();
+        frame.setVisible(true);
 
-        _frame.addWindowFocusListener(new WindowFocusListener() {
+        frame.addWindowFocusListener(new WindowFocusListener() {
 
             @Override
             public void windowGainedFocus(WindowEvent e) {
