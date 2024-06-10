@@ -47,9 +47,10 @@ public class LoadSave {
 
                 int value = color.getRed();
                 if (value >= 48) value = 0;
-
+                // System.out.print(value + " ");
                 data[i][j] = color.getRed();
             }
+            // System.out.println();
         }
         return data;
     }

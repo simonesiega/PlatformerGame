@@ -31,6 +31,8 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_SPACE:
+                _gamePanel.getGame().getPlayer().set_spacebarPressed(true);
             case KeyEvent.VK_W:
                 _gamePanel.getGame().getPlayer().set_upPressed(true);
                 break;
@@ -53,6 +55,8 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_SPACE:
+                _gamePanel.getGame().getPlayer().set_spacebarPressed(false);
             case KeyEvent.VK_W:
                 _gamePanel.getGame().getPlayer().set_upPressed(false);
                 break;
