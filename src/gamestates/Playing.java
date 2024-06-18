@@ -3,6 +3,7 @@ package gamestates;
 import entities.Player;
 import levels.LevelManager;
 import mainpack.Game;
+import ui.pause.PauseOverley;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,9 @@ public class Playing extends State implements Statemethods{
 
     private Player _player;
     private LevelManager _levelManager;
+
+    private PauseOverley _pauseOverley;
+    private boolean _pausedGame = true;
 
     public Playing(Game game) {
         super(game);
@@ -27,6 +31,7 @@ public class Playing extends State implements Statemethods{
         _levelManager = new LevelManager(_game);
         _player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
         _player.loadLevelData(_levelManager.getCurrentLevel().getLevelData());
+        _pauseOverley = new PauseOverley();
     }
 
     public void windowFocusLost() {
@@ -37,12 +42,14 @@ public class Playing extends State implements Statemethods{
     public void update() {
         _levelManager.update();
         _player.update();
+        _pauseOverley.update();
     }
 
     @Override
     public void draw(Graphics g) {
         _levelManager.draw(g);
         _player.render(g);
+        _pauseOverley.draw(g);
     }
 
     @Override
@@ -54,17 +61,17 @@ public class Playing extends State implements Statemethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (_pausedGame) _pauseOverley.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if (_pausedGame) _pauseOverley.mouseReleased(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        if (_pausedGame) _pauseOverley.mouseMoved(e);
     }
 
     @Override
