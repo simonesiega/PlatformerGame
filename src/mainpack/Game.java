@@ -1,8 +1,8 @@
 package mainpack;
 
-import entities.Player;
 import gamestates.Gamestate;
-import levels.LevelManager;
+import gamestates.Playing;
+import gamestates.Menu;
 
 import java.awt.*;
 
@@ -28,8 +28,8 @@ public class Game implements Runnable {
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
-    private Player _player;
-    private LevelManager _levelManager;
+    private Playing _playing;
+    private Menu _menu;
 
     public Game(){
         initClasses();
@@ -41,14 +41,17 @@ public class Game implements Runnable {
         startGameLoop();
     }
 
-    public Player getPlayer(){
-        return _player;
+    public Menu getMenu(){
+        return _menu;
+    }
+
+    public Playing getPlaying(){
+        return _playing;
     }
 
     private void initClasses() {
-        _levelManager = new LevelManager(this);
-        _player = new Player(200, 200, (int) (64 * SCALE), (int) (40 * SCALE));
-        _player.loadLevelData(_levelManager.getCurrentLevel().getLevelData());
+        _menu = new Menu(this);
+        _playing = new Playing(this);
     }
 
     private void startGameLoop(){
@@ -58,23 +61,18 @@ public class Game implements Runnable {
 
     private void update(){
         switch (Gamestate.state) {
-            // case MENU -> menu.update();
-            case PLAYING -> {
-                _player.update();
-                _levelManager.update();
-            }
-            default -> System.out.println("Glitch");
+            case MENU -> _menu.update();
+            case PLAYING -> _playing.update();
+            case OPTIONS -> System.exit(0);
+            case QUIT -> System.exit(1);
+            default -> System.out.println("Invalid state");
         }
     }
 
     public void render(Graphics g){
         switch (Gamestate.state) {
-            // case MENU -> menu.update();
-            case PLAYING -> {
-                _levelManager.draw(g);
-                _player.render(g);
-            }
-            default -> System.out.println("Glitch");
+            case MENU: _menu.draw(g); break;
+            case PLAYING: _playing.draw(g); break;
         }
     }
 
@@ -124,6 +122,9 @@ public class Game implements Runnable {
     }
 
     public void windowFocusLost() {
-        _player.resetDirBoolean();
+        if (Gamestate.state == Gamestate.PLAYING) {
+            _playing.getPlayer().resetDirBoolean();
+        }
+        // No check menu bc it doesn't matter
     }
 }

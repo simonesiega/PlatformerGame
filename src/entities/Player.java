@@ -23,7 +23,7 @@ public class Player extends Entity{
     private boolean _playerMoving = false, _playerAttacking = false, _playerInAir = false;
     private boolean _leftPressed, _rightPressed, _upPressed, _downPressed, _spacebarPressed;
 
-    private final float _speedMov = 2.0f * Game.SCALE;
+    private final float _speedMov = Game.SCALE; // Movimento player
     private float _airSpeed = 1f;
     private final float _gravity = 0.04f * Game.SCALE, _jumpSpeed = -2.25f * Game.SCALE, fallSpeedAfterCollision = 0.5f * Game.SCALE;
 
@@ -32,7 +32,7 @@ public class Player extends Entity{
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitBox(x, y, 20*Game.SCALE, 27*Game.SCALE);
+        initHitBox(x, y, (int) (20 * Game.SCALE), (int) (27 * Game.SCALE));
     }
 
     public void update(){
@@ -219,7 +219,7 @@ public class Player extends Entity{
         return _spacebarPressed;
     }
 
-    public void set_spacebarPressed(boolean _spacebarPressed) {
-        this._spacebarPressed = _spacebarPressed;
+    public void set_spacebarPressed(boolean spacebarPressed) {
+        this._spacebarPressed = spacebarPressed;
     }
 }
