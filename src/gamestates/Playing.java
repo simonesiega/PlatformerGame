@@ -15,7 +15,7 @@ public class Playing extends State implements Statemethods{
     private LevelManager _levelManager;
 
     private PauseOverley _pauseOverley;
-    private boolean _pausedGame = true;
+    private boolean _pausedGame = false;
 
     public Playing(Game game) {
         super(game);
@@ -31,7 +31,7 @@ public class Playing extends State implements Statemethods{
         _levelManager = new LevelManager(_game);
         _player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
         _player.loadLevelData(_levelManager.getCurrentLevel().getLevelData());
-        _pauseOverley = new PauseOverley();
+        _pauseOverley = new PauseOverley(this);
     }
 
     public void windowFocusLost() {
@@ -40,16 +40,20 @@ public class Playing extends State implements Statemethods{
 
     @Override
     public void update() {
-        _levelManager.update();
-        _player.update();
-        _pauseOverley.update();
+        if (_pausedGame) _pauseOverley.update();
+
+        else {
+            _levelManager.update();
+            _player.update();
+        }
     }
 
     @Override
     public void draw(Graphics g) {
         _levelManager.draw(g);
         _player.render(g);
-        _pauseOverley.draw(g);
+
+        if (_pausedGame) _pauseOverley.draw(g);
     }
 
     @Override
@@ -57,6 +61,10 @@ public class Playing extends State implements Statemethods{
         if (e.getButton() == MouseEvent.BUTTON1) {
             _player.set_playerAttacking(true);
         }
+    }
+
+    public void mouseDragged(MouseEvent e){
+        if (_pausedGame) _pauseOverley.mouseDragged(e);
     }
 
     @Override
@@ -86,9 +94,8 @@ public class Playing extends State implements Statemethods{
             case KeyEvent.VK_D:
                 _player.set_rightPressed(true);
                 break;
-            // MODIFICARE SUCCESSIVAMENTE
-            case KeyEvent.VK_E:
-                Gamestate.state = Gamestate.MENU;
+            case KeyEvent.VK_ESCAPE:
+                _pausedGame = !_pausedGame;
         }
     }
 
@@ -105,5 +112,9 @@ public class Playing extends State implements Statemethods{
                 _player.set_rightPressed(false);
                 break;
         }
+    }
+
+    public void unpauseGame(){
+        _pausedGame = false;
     }
 }

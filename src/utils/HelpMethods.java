@@ -7,7 +7,6 @@ import java.awt.geom.Rectangle2D;
 public class HelpMethods {
 
     public static boolean canMoveHere(float x, float y, float width, float height, int[][] levelData) {
-
         return (isNotSolid(x, y, levelData)) && (isNotSolid(x + width, y + height, levelData)) && (isNotSolid(x + width, y, levelData) && (isNotSolid(x, y + height, levelData)));
     }
 
