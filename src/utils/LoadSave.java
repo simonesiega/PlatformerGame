@@ -1,7 +1,5 @@
 package utils;
 
-import mainpack.Game;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,7 +18,7 @@ public class LoadSave {
     public static final String SOUND_BUTTONS = "sound_button.png";
     public static final String URM_BUTTONS = "urm_buttons.png";
     public static final String VOLUME_BUTTONS = "volume_buttons.png";
-    public static final String MENU_BACKGROUND_IMG = "background_menu.png";
+    public static final String MENU_BACKGROUND_IMG = "background_menu2.png";
 
     public static BufferedImage getSpriteAtlas(String fileName){
         BufferedImage img = null;
