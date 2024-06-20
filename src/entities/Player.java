@@ -41,8 +41,8 @@ public class Player extends Entity{
         setAnimation();
     }
 
-    public void render(Graphics g){
-        g.drawImage(_animations[_playerAction][_animationIndex], (int)(_hitBox.x - xDrawOffset), (int) (_hitBox.y - yDrawOffset), _width, _height, null);
+    public void render(Graphics g, int offset){
+        g.drawImage(_animations[_playerAction][_animationIndex], (int)(_hitBox.x - xDrawOffset) - offset, (int) (_hitBox.y - yDrawOffset), _width, _height, null);
     //    drawHitBox(g); Only for debugging
     }
 
@@ -108,8 +108,10 @@ public class Player extends Entity{
 
         if (_spacebarPressed) playerJump();
 
-        if (!_leftPressed && !_rightPressed && !_playerInAir)
-            return;
+        // Fix bug run when u hold A and D at the same time
+        if (!_playerInAir){
+            if ((!_leftPressed && !_rightPressed) || (_leftPressed && _rightPressed)) return;
+        }
 
         float xSpeed = 0;
 

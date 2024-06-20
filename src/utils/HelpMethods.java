@@ -19,8 +19,10 @@ public class HelpMethods {
      * @param levelData
      * @return
      */
-    private static boolean isNotSolid(float x, float y, int[][] levelData){
-        if (x < 0 || x >= Game.GAME_WIDTH)
+    private static boolean isNotSolid(float x, float y, int[][] levelData) {
+        int maxWidth = levelData[0].length * Game.TILES_SIZE;
+
+        if (x < 0 || x >= maxWidth)
             return false;
         if (y < 0 || y >= Game.GAME_HEIGHT)
             return false;
